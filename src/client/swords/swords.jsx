@@ -28,7 +28,8 @@ export class Swords extends React.Component {
                     <ul>
                         {this.props.swords.collection.map(sword => (
                             <li key={sword.id}>
-                                Sword called {sword.name} by {sword.smith.name}
+                                Sword called "{sword.name}" by{' '}
+                                {sword.smith.name}
                             </li>
                         ))}
                     </ul>

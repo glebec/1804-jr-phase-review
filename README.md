@@ -1,3 +1,3 @@
-# 🏁 Springboard
+# Jr Phase Review Session
 
-A personal starting point for new projects. Opt-out features make it easier to get started without copy-pasting from other projects.
+Sample code live-coded for 1804-FSA-NY

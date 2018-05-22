@@ -2,6 +2,9 @@ const db = require('./db')
 const Sword = require('./sword')
 const Smith = require('./smith')
 
+Sword.belongsTo(Smith)
+Smith.hasMany(Sword)
+
 module.exports = {
     db,
     Sword,
@@ -9,7 +12,7 @@ module.exports = {
 }
 
 db
-    .sync()
+    .sync({ force: true })
     .then(() => {
         console.log('synced')
     })

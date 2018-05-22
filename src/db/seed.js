@@ -4,13 +4,13 @@ const { db, Sword, Smith } = require('./index')
 
 const smiths = [
     {
-        name: 'Masamune',
+        name: 'Masamune', // learned from Kunimitsu
     },
     {
-        name: 'Norishige',
+        name: 'Norishige', // learned from Masamune
     },
     {
-        name: 'Kunitoshi',
+        name: 'Kunimitsu', // learned from Nousit
     },
     {
         name: 'Nousit',
@@ -40,12 +40,18 @@ const seedScript = async () => {
         const createdSmiths = await Smith.bulkCreate(smiths, {
             returning: true,
         })
-        await Sword.bulkCreate(
+        const settingLineages = Promise.all([
+            createdSmiths[0].setTeacher(createdSmiths[2]),
+            createdSmiths[1].setTeacher(createdSmiths[0]),
+            createdSmiths[2].setTeacher(createdSmiths[3]),
+        ])
+        const creatingSwords = Sword.bulkCreate(
             swords.map((sword, idx) => ({
                 ...sword,
                 smithId: createdSmiths[idx].id,
             }))
         )
+        await Promise.all([settingLineages, creatingSwords])
     } catch (err) {
         console.error(err)
     } finally {

@@ -10,12 +10,3 @@ module.exports = {
     Sword,
     Smith,
 }
-
-db
-    .sync({ force: true })
-    .then(() => {
-        console.log('synced')
-    })
-    .finally(() => {
-        db.close()
-    })

@@ -3,6 +3,7 @@
 const express = require('express')
 const volleyball = require('volleyball')
 
+const { db } = require('../db')
 const routes = require('./routes')
 
 const PORT = 1337
@@ -27,6 +28,10 @@ app.use(routes)
 // }`
 
 // const serializedAsURLEncoded = 'name=G%20L&age=33'
+
+db.sync().then(() => {
+    console.log('synced')
+})
 
 app.listen(PORT, () => {
     console.log(`listening: http://localhost:${PORT}`)

@@ -69,6 +69,7 @@
         "lint-staged": "^7.1.2",
         "nodemon": "^1.11.0",
         "prettier": "1.11.1",
-        "webpack": "^4.8.3"
+        "webpack": "^4.8.3",
+        "webpack-cli": "^2.1.3"
     }
 }

@@ -33,6 +33,16 @@ export class Swords extends React.Component {
                         ))}
                     </ul>
                 )
+            case 'error':
+                return (
+                    <>
+                        <p>Oh no! Failed.</p>
+                        <p>{this.props.swords.error.message}</p>
+                        <button type="button" onClick={this.props.getSwords}>
+                            Click to Try Again
+                        </button>
+                    </>
+                )
             default:
                 return (
                     <>

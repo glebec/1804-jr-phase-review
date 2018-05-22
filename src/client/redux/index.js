@@ -1,6 +1,9 @@
 'use strict'
 
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import axios from 'axios'
 
 const REQUESTED_SWORDS = 'REQUESTED_SWORDS'
 const GOT_SWORDS = 'GOT_SWORDS'
@@ -29,6 +32,17 @@ const failedSwords = error => ({
     },
 })
 
+export const getSwords = () => async dispatch => {
+    dispatch(requestedSwords())
+    try {
+        const swords = await axios.get('/swords').then(res => res.data)
+        dispatch(gotSwords(swords))
+    } catch (err) {
+        console.error(err)
+        dispatch(failedSwords(err))
+    }
+}
+
 const initialState = {
     swords: {
         status: 'unasked',
@@ -36,9 +50,17 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-    return state
+    switch (action.type) {
+        case REQUESTED_SWORDS:
+        case GOT_SWORDS:
+        case FAILED_SWORDS:
+            return { swords: action.payload } // works for this reducer, not all!
+        default:
+            return state
+    }
 }
 
-const store = createStore(reducer)
+const middleware = composeWithDevTools(applyMiddleware(thunkMiddleware))
+const store = createStore(reducer, middleware)
 
 export default store

@@ -19,6 +19,7 @@ app.use(express.urlencoded())
 app.use(routes)
 
 app.use('/', express.static(join(__dirname, '..', 'client', 'public')))
+app.use('/', express.static(join(__dirname, '..', '..', 'build')))
 
 // const deserialized = {
 //     name: 'G L',
